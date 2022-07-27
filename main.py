@@ -115,39 +115,43 @@ class Main:
         import Data
         self.data = Data.DataLoad(self.view.repetitions_spinBox.value(),
                                   self.view.coefficient_spinBox.value())
-        file = pd.ExcelFile(ms.file_dialog())
-        data_file = pd.ExcelFile(file)
-        matrix_file = pd.ExcelFile("hartley_matrix.xlsx")
-        par_file = pd.ExcelFile("hartley_parameters.xlsx")
-        if self.data.open_file(data_file):
-            if self.data.data_frame is not None:
-                if self.data.checking_amount_data():
-                    if self.data.checking_content_data():
-                        if self.data.loading_hartley_matrix(matrix_file) and True not in self.data.hm.isnull().values:
-                            if self.data.open_par(par_file):
-                                self.loading_error = False
-                                ms.message_dialog("Dane wczytano pomyślnie")
-                                print(self.data.data_frame)
-                            else:
-                                ms.error_dialog("Błąd pliku parametrów")
-                                return
+        self.data.open_file()
+        self.data.loading_hartley_matrix('hartley_matrix.xlsx')
+        self.data.open_par('hartley_parameters.xlsx')
+        '''
+        file = 'Szablon.xlsx'
+        data_file = pd.read_excel(file)
+        matrix_file = pd.read_excel("hartley_matrix.xlsx")
+        par_file = pd.read_excel("hartley_parameters.xlsx")
+        print(data_file)
+        
+        if self.data.data_frame is not None:
+            if self.data.checking_amount_data():
+                if self.data.checking_content_data():
+                    if self.data.loading_hartley_matrix(matrix_file) and True not in self.data.hm.isnull().values:
+                        if self.data.open_par(par_file):
+                            self.loading_error = False
+                            ms.message_dialog("Dane wczytano pomyślnie")
+                            print(self.data.data_frame)
                         else:
-                            ms.error_dialog("Błąd pliku matrycy")
+                            ms.error_dialog("Błąd pliku parametrów")
                             return
                     else:
-                        ms.error_dialog("Nieprawidłowe dane")
+                        ms.error_dialog("Błąd pliku matrycy")
                         return
                 else:
-                    ms.error_dialog("Nieprawidłowa ilość danych")
+                    ms.error_dialog("Nieprawidłowe dane")
                     return
             else:
-                ms.error_dialog("Plik jest pusty")
+                ms.error_dialog("Nieprawidłowa ilość danych")
+                return
         else:
-            ms.error_dialog("Nieprawidłowe dane")
+            ms.error_dialog("Plik jest pusty")
             return
         self.factors_name = []
         for i in range(self.view.coefficient_spinBox.value()):
             self.factors_name.append(self.data.data_frame.keys()[i])
+        '''
 
     def make_analysis(self):
         import Analysis
@@ -158,6 +162,7 @@ class Main:
         except:
             ms.error_dialog("Brak danych")
             return
+        print('poprawnie wczytałem dane do analizy')
         self.an.matrix_exponentiation()
         self.an.intra_matrix_multiplication()
         self.an.average_samples()

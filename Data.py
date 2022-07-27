@@ -8,9 +8,9 @@ class DataLoad:
         self.number_of_repetitions = int(number_of_repetitions)
         self.number_of_coefficiens = int(number_of_coefficiens)
 
-    def open_file(self, file):
+    def open_file(self, file='Szablon.xlsx'):
         try:
-            self.data_frame = pd.read_excel(file, str(self.number_of_coefficiens))
+            self.data_frame = pd.read_excel(file)
             print(self.data_frame)
         except:
             return False
@@ -27,10 +27,10 @@ class DataLoad:
             return True
 
     def checking_content_data(self):
-        for i in range(len(self.data_frame.columns)):
-            for n in range(self.data_frame.index.stop):
+        for row in self.data_frame.values:
+            for value in row:
                 try:
-                    float(self.data_frame.at[n, self.data_frame.columns[i]])
+                    float(value)
                 except:
                     return False
         return True
