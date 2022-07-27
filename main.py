@@ -1,6 +1,5 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from qt_material import apply_stylesheet
 import Message as ms
 import view
 import pandas as pd
@@ -70,7 +69,7 @@ class Main:
         self.view.textEdit.append(
             f"ponieważ {round(res.empi_F_factor, 5)} {res.mark} {round(res.crit_F_factor, 5)}")
         self.view.textEdit.append(f"\n{res.rating}")
-
+    '''
     def change_theme(self):
         print(self.view.actions)
         self.view.actions[0].triggered.connect(lambda: load_theme(self.view.actions[0].objectName()))
@@ -93,7 +92,7 @@ class Main:
         def load_theme(theme):
             print(theme)
             apply_stylesheet(self.app, theme, light_secondary=True)
-
+        '''
     def control_view_pushbuttons(self):
         self.view.load_pushButton.clicked.connect(lambda: self.load_data())
         self.view.analysis_pushButton.clicked.connect(lambda: self.make_analysis())
@@ -116,8 +115,8 @@ class Main:
         import Data
         self.data = Data.DataLoad(self.view.repetitions_spinBox.value(),
                                   self.view.coefficient_spinBox.value())
-        # file = pd.ExcelFile(ms.file_dialog())
-        data_file = pd.ExcelFile("exl.xlsx")
+        file = pd.ExcelFile(ms.file_dialog())
+        data_file = pd.ExcelFile(file)
         matrix_file = pd.ExcelFile("hartley_matrix.xlsx")
         par_file = pd.ExcelFile("hartley_parameters.xlsx")
         if self.data.open_file(data_file):
