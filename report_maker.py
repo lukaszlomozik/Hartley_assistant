@@ -1,11 +1,11 @@
 import os
-import docx
+from docx import Document
 
 
 class Report:
 
     def create_file(self):
-        self.doc = docx.Document()
+        self.doc = Document()
 
     def add_heading(self, text):
         self.doc.add_heading(text, 0)

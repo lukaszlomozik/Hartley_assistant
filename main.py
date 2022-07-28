@@ -22,7 +22,9 @@ class Main:
     def open_plots_view(self):
         try:
             self.plot_window = QtWidgets.QMainWindow()
+            print('self.plot_window = QtWidgets.QMainWindow()')
             self.plot_window_ui = view.Ui_PlotWindow(self.view.coefficient_spinBox.value(), self.factors_name)
+            print('self.plot_window_ui = view.Ui_PlotWindow(self.view.coefficient_spinBox.value(), self.factors_name)')
             self.plot_window_ui.setupUi(self.plot_window)
             self.plot_window.show()
             self.control_plotview_pushbuttons()
@@ -69,6 +71,7 @@ class Main:
         self.view.textEdit.append(
             f"ponieważ {round(res.empi_F_factor, 5)} {res.mark} {round(res.crit_F_factor, 5)}")
         self.view.textEdit.append(f"\n{res.rating}")
+
     '''
     def change_theme(self):
         print(self.view.actions)
@@ -93,6 +96,7 @@ class Main:
             print(theme)
             apply_stylesheet(self.app, theme, light_secondary=True)
         '''
+
     def control_view_pushbuttons(self):
         self.view.load_pushButton.clicked.connect(lambda: self.load_data())
         self.view.analysis_pushButton.clicked.connect(lambda: self.make_analysis())
@@ -148,10 +152,10 @@ class Main:
         else:
             ms.error_dialog("Plik jest pusty")
             return
+        '''
         self.factors_name = []
         for i in range(self.view.coefficient_spinBox.value()):
             self.factors_name.append(self.data.data_frame.keys()[i])
-        '''
 
     def make_analysis(self):
         import Analysis
@@ -191,6 +195,7 @@ class Main:
 
     def make_3dplot(self):
         import plot3d
+        print('import 3d')
         input_level_factors = []
         axis_name = {}
         for i in range(self.view.coefficient_spinBox.value()):
@@ -213,6 +218,7 @@ class Main:
     def make_report(self):
         try:
             import report_maker
+            print('report_maker')
             res = self.an.evaluation
             rpt = report_maker.Report()
             rpt.create_file()
