@@ -131,6 +131,9 @@ dmypy.json
 #excel files
 Szablon.xlsx
 
+#results files
+test.docx
+
 # Others
 .idea/Hartley_assistant.iml
 .idea/vcs.xml
