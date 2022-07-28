@@ -129,8 +129,7 @@ dmypy.json
 .pyre/
 
 #excel files
-
-.xlsx
+Szablon.xlsx
 
 # Others
 .idea/Hartley_assistant.iml
